@@ -1,22 +1,18 @@
 FROM node:18-alpine
 
-# Устанавливаем git
-RUN apk add --no-cache git
-
 WORKDIR /app
 
-# Клонируем репозиторий бэкенда
-RUN git clone https://github.com/morislaflame/doodleServer.git .
+# Копируем исходный код
+COPY backend-source/ .
 
 # Устанавливаем зависимости
-RUN npm ci --only=production
+RUN npm ci --only=production --no-audit --no-fund
 
 # Создаем пользователя для безопасности
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nodejs -u 1001
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001 && \
+    chown -R nodejs:nodejs /app
 
-# Меняем владельца файлов
-RUN chown -R nodejs:nodejs /app
 USER nodejs
 
 EXPOSE 5000

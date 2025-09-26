@@ -1,17 +1,13 @@
 # Build stage
 FROM node:18-alpine as builder
 
-# Устанавливаем git
-RUN apk add --no-cache git
-
 WORKDIR /app
 
-# Клонируем репозиторий фронтенда и переключаемся на ветку shop
-RUN git clone https://github.com/morislaflame/DoodleTon.git . && \
-    git checkout shop
+# Копируем исходный код
+COPY frontend-source/ .
 
 # Устанавливаем зависимости
-RUN npm ci
+RUN npm ci --no-audit --no-fund
 
 # Собираем приложение
 RUN npm run build
