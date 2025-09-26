@@ -6,8 +6,9 @@ RUN apk add --no-cache git
 
 WORKDIR /app
 
-# Клонируем репозиторий фронтенда
-RUN git clone https://github.com/morislaflame/DoodleTon.git .
+# Клонируем репозиторий фронтенда и переключаемся на ветку shop
+RUN git clone https://github.com/YOUR_USERNAME/doodle-frontend.git . && \
+    git checkout shop
 
 # Устанавливаем зависимости
 RUN npm ci
