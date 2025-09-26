@@ -28,7 +28,7 @@ services:
       - DB_PORT=5432
       - DB_NAME=doodlejump
       - DB_USER=doodleuser
-      - DB_PASSWORD=doodlepass184848s
+      - DB_PASSWORD=doodlepass184848
       - SECRET_KEY=${SECRET_KEY}
       - BOT_TOKEN=${BOT_TOKEN}
       - WEBHOOK_SECRET_TOKEN=${WEBHOOK_SECRET_TOKEN}
