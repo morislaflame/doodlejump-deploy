@@ -63,12 +63,24 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./ssl:/etc/nginx/ssl
+      - /etc/letsencrypt:/etc/letsencrypt:ro
     depends_on:
       - frontend
       - backend
     networks:
       - doodle_network
     restart: unless-stopped
+
+  # Certbot для автоматического получения SSL
+  certbot:
+    image: certbot/certbot
+    container_name: doodle_certbot
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/www/certbot:/var/www/certbot
+    command: certonly --webroot --webroot-path=/var/www/certbot --email podruzhka@mail.ru --agree-tos --no-eff-email -d podruzhka.store
+    depends_on:
+      - nginx
 
 volumes:
   postgres_data:
